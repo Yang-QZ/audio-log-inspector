@@ -6,9 +6,8 @@ This tool analyzes audio HAL logs from MediaTek MTK8676 chipset.
 
 import re
 import sys
-from datetime import datetime
 from collections import defaultdict
-from typing import List, Dict, Tuple
+from typing import Dict
 
 
 class AudioLogInspector:
@@ -30,26 +29,18 @@ class AudioLogInspector:
     def parse_log_line(self, line: str) -> Dict:
         """Parse a single log line and extract relevant information."""
         # Common MTK audio HAL log patterns
-        patterns = {
-            'timestamp': r'(\d{1,2}-\d{1,2}\s+\d{2}:\d{2}:\d{2}\.\d+)',
-            'pid_tid': r'(\d+)\s+(\d+)',
-            'level': r'[VDIWEF]',
-            'tag': r'([A-Za-z0-9_]+)',
-            'message': r':\s+(.*)',
-        }
+        timestamp_pattern = r'(\d{1,2}-\d{1,2}\s+\d{2}:\d{2}:\d{2}\.\d+)'
         
         entry = {
             'raw': line,
             'timestamp': None,
-            'pid': None,
-            'tid': None,
             'level': None,
             'tag': None,
             'message': None,
         }
         
         # Extract timestamp
-        ts_match = re.search(patterns['timestamp'], line)
+        ts_match = re.search(timestamp_pattern, line)
         if ts_match:
             entry['timestamp'] = ts_match.group(1)
         
@@ -76,7 +67,7 @@ class AudioLogInspector:
         
         try:
             with open(filepath, 'r', encoding='utf-8', errors='replace') as f:
-                for line_num, line in enumerate(f, 1):
+                for _, line in enumerate(f, 1):
                     line = line.strip()
                     if not line:
                         continue
