@@ -1,0 +1,24 @@
+12-25 10:15:32.123  1234  1256 D AudioFlinger: createTrack() sessionId: 1234 for pid: 5678
+12-25 10:15:32.125  1234  1256 I AudioFlinger: Starting track for stream AUDIO_STREAM_MUSIC
+12-25 10:15:32.130  1234  1256 D AudioPolicyManager: getOutput() device 0x2 (AUDIO_DEVICE_OUT_SPEAKER)
+12-25 10:15:32.135  1234  1258 I AudioHAL: Opening PCM device for playback
+12-25 10:15:32.140  1234  1258 D audio_hw_primary: MTK8676 audio HAL initialized
+12-25 10:15:32.145  1234  1258 D MTKAudioHardware: setParameters() routing=2
+12-25 10:15:32.150  1234  1258 I AudioStreamOut: stream started, sample_rate=48000, channels=2
+12-25 10:15:33.200  1234  1258 W AudioFlinger: buffer underrun detected on track 1234
+12-25 10:15:35.100  1234  1256 D AudioPolicyManager: setDeviceConnectionState() device: AUDIO_DEVICE_OUT_WIRED_HEADSET state: connected
+12-25 10:15:35.105  1234  1256 I AudioPolicyManager: switching audio output to headset
+12-25 10:15:35.110  1234  1258 D audio_hw_primary: routing audio to headset
+12-25 10:15:35.115  1234  1258 I AudioHAL: Audio device switched successfully
+12-25 10:15:40.500  1234  1256 D AudioFlinger: StopTrack() sessionId: 1234
+12-25 10:15:40.505  1234  1258 I AudioStreamOut: stream stopped
+12-25 10:15:40.510  1234  1258 D AudioHAL: Closing PCM device
+12-25 10:15:42.100  1234  1256 E AudioFlinger: Failed to create track, error: -12 (ENOMEM)
+12-25 10:15:42.105  1234  1256 E AudioPolicyManager: getOutput() failed to allocate output stream
+12-25 10:15:43.200  1234  1256 W audio_hw_primary: device busy, waiting...
+12-25 10:15:43.250  1234  1256 I audio_hw_primary: device ready, proceeding
+12-25 10:15:45.000  1234  1260 D AudioFlinger: Recording started for session 5678
+12-25 10:15:45.005  1234  1260 I AudioStreamIn: capture stream started, sample_rate=16000
+12-25 10:15:45.010  1234  1260 D audio_hw_primary: MTK8676 capture initialized
+12-25 10:15:50.100  1234  1260 D AudioFlinger: Recording stopped for session 5678
+12-25 10:15:50.105  1234  1260 I AudioStreamIn: capture stream stopped
