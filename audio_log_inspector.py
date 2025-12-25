@@ -14,6 +14,12 @@ from typing import List, Dict, Tuple
 class AudioLogInspector:
     """Main class for inspecting and analyzing audio HAL logs."""
     
+    # Display constants
+    MAX_ERRORS_DISPLAYED = 10
+    MAX_WARNINGS_DISPLAYED = 10
+    MAX_MESSAGE_LENGTH = 100
+    MAX_DEVICE_CHANGES_DISPLAYED = 5
+    
     def __init__(self):
         self.log_entries = []
         self.errors = []
@@ -25,7 +31,7 @@ class AudioLogInspector:
         """Parse a single log line and extract relevant information."""
         # Common MTK audio HAL log patterns
         patterns = {
-            'timestamp': r'(\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\.\d+)',
+            'timestamp': r'(\d{1,2}-\d{1,2}\s+\d{2}:\d{2}:\d{2}\.\d+)',
             'pid_tid': r'(\d+)\s+(\d+)',
             'level': r'[VDIWEF]',
             'tag': r'([A-Za-z0-9_]+)',
@@ -69,7 +75,7 @@ class AudioLogInspector:
         print(f"[*] Analyzing log file: {filepath}")
         
         try:
-            with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+            with open(filepath, 'r', encoding='utf-8', errors='replace') as f:
                 for line_num, line in enumerate(f, 1):
                     line = line.strip()
                     if not line:
@@ -146,22 +152,22 @@ class AudioLogInspector:
         if self.errors:
             report_lines.append("## Errors Detected")
             report_lines.append("-" * 80)
-            for i, error in enumerate(self.errors[:10], 1):  # Show first 10 errors
+            for i, error in enumerate(self.errors[:self.MAX_ERRORS_DISPLAYED], 1):
                 report_lines.append(f"{i}. [{error.get('timestamp', 'N/A')}] {error.get('tag', 'Unknown')}")
-                report_lines.append(f"   {error.get('message', 'No message')[:100]}")
-            if len(self.errors) > 10:
-                report_lines.append(f"   ... and {len(self.errors) - 10} more errors")
+                report_lines.append(f"   {error.get('message', 'No message')[:self.MAX_MESSAGE_LENGTH]}")
+            if len(self.errors) > self.MAX_ERRORS_DISPLAYED:
+                report_lines.append(f"   ... and {len(self.errors) - self.MAX_ERRORS_DISPLAYED} more errors")
             report_lines.append("")
         
         # Warning details
         if self.warnings:
             report_lines.append("## Warnings Detected")
             report_lines.append("-" * 80)
-            for i, warning in enumerate(self.warnings[:10], 1):  # Show first 10 warnings
+            for i, warning in enumerate(self.warnings[:self.MAX_WARNINGS_DISPLAYED], 1):
                 report_lines.append(f"{i}. [{warning.get('timestamp', 'N/A')}] {warning.get('tag', 'Unknown')}")
-                report_lines.append(f"   {warning.get('message', 'No message')[:100]}")
-            if len(self.warnings) > 10:
-                report_lines.append(f"   ... and {len(self.warnings) - 10} more warnings")
+                report_lines.append(f"   {warning.get('message', 'No message')[:self.MAX_MESSAGE_LENGTH]}")
+            if len(self.warnings) > self.MAX_WARNINGS_DISPLAYED:
+                report_lines.append(f"   ... and {len(self.warnings) - self.MAX_WARNINGS_DISPLAYED} more warnings")
             report_lines.append("")
         
         # Stream operations
@@ -175,10 +181,10 @@ class AudioLogInspector:
         if self.device_changes:
             report_lines.append("## Audio Device Changes")
             report_lines.append("-" * 80)
-            for i, change in enumerate(self.device_changes[:5], 1):  # Show first 5 changes
+            for i, change in enumerate(self.device_changes[:self.MAX_DEVICE_CHANGES_DISPLAYED], 1):
                 report_lines.append(f"{i}. [{change.get('timestamp', 'N/A')}] {change.get('message', 'No message')[:80]}")
-            if len(self.device_changes) > 5:
-                report_lines.append(f"   ... and {len(self.device_changes) - 5} more changes")
+            if len(self.device_changes) > self.MAX_DEVICE_CHANGES_DISPLAYED:
+                report_lines.append(f"   ... and {len(self.device_changes) - self.MAX_DEVICE_CHANGES_DISPLAYED} more changes")
             report_lines.append("")
         
         report_lines.append("=" * 80)

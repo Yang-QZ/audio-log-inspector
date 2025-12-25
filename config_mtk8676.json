@@ -22,22 +22,13 @@
     ],
     "error_keywords": [
       "error",
-      "Error",
-      "ERROR",
       "fail",
-      "Fail",
-      "FAIL",
-      "failed",
-      "Failed",
-      "FAILED"
+      "failed"
     ],
     "warning_keywords": [
       "warning",
-      "Warning",
-      "WARNING",
       "warn",
-      "Warn",
-      "WARN"
+      "underrun"
     ]
   },
   "device_types": [

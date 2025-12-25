@@ -28,7 +28,7 @@ This is an audio HAL (Hardware Abstraction Layer) log analysis tool specifically
 
 ```bash
 # 克隆仓库 (Clone repository)
-git clone https://github.com/Yang-QZ/audio-log-inspector.git
+git clone https://github.com/<your-username>/audio-log-inspector.git
 cd audio-log-inspector
 
 # 确保安装 Python 3.6+ (Ensure Python 3.6+ is installed)
