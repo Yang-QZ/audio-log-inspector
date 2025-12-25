@@ -19,6 +19,16 @@ class AudioLogInspector:
     MAX_MESSAGE_LENGTH = 100
     MAX_DEVICE_CHANGES_DISPLAYED = 5
     
+    # Audio-related keywords for log filtering
+    AUDIO_KEYWORDS = [
+        'audio', 'Audio', 'AUDIO',
+        'AudioFlinger', 'AudioPolicyManager', 'AudioHAL',
+        'playback', 'capture', 'record',
+        'stream', 'device', 'volume',
+        'MTK', 'mtk', 'alsa', 'ALSA',
+        'pcm', 'PCM', 'codec', 'dsp', 'DSP'
+    ]
+    
     def __init__(self):
         self.log_entries = []
         self.errors = []
@@ -100,15 +110,7 @@ class AudioLogInspector:
     
     def _is_audio_related(self, line: str) -> bool:
         """Check if log line is audio related."""
-        audio_keywords = [
-            'audio', 'Audio', 'AUDIO',
-            'AudioFlinger', 'AudioPolicyManager', 'AudioHAL',
-            'playback', 'capture', 'record',
-            'stream', 'device', 'volume',
-            'MTK', 'mtk', 'alsa', 'ALSA',
-            'pcm', 'PCM', 'codec', 'dsp', 'DSP'
-        ]
-        return any(keyword in line for keyword in audio_keywords)
+        return any(keyword in line for keyword in self.AUDIO_KEYWORDS)
     
     def _track_stream(self, entry: Dict) -> None:
         """Track audio stream operations."""
