@@ -1,0 +1,75 @@
+{
+  "platform": "MTK8676",
+  "description": "MediaTek MT8676 Audio HAL Configuration",
+  "audio_hal_version": "1.0",
+  "supported_features": [
+    "playback",
+    "capture",
+    "volume_control",
+    "device_routing",
+    "stream_management"
+  ],
+  "log_patterns": {
+    "audio_tags": [
+      "AudioFlinger",
+      "AudioPolicyManager",
+      "AudioHAL",
+      "audio_hw_primary",
+      "MTKAudioHardware",
+      "AudioALSA",
+      "AudioStreamOut",
+      "AudioStreamIn"
+    ],
+    "error_keywords": [
+      "error",
+      "fail",
+      "failed"
+    ],
+    "warning_keywords": [
+      "warning",
+      "warn",
+      "underrun"
+    ]
+  },
+  "device_types": [
+    "AUDIO_DEVICE_OUT_SPEAKER",
+    "AUDIO_DEVICE_OUT_EARPIECE",
+    "AUDIO_DEVICE_OUT_WIRED_HEADSET",
+    "AUDIO_DEVICE_OUT_WIRED_HEADPHONE",
+    "AUDIO_DEVICE_OUT_BLUETOOTH_SCO",
+    "AUDIO_DEVICE_OUT_BLUETOOTH_A2DP",
+    "AUDIO_DEVICE_IN_BUILTIN_MIC",
+    "AUDIO_DEVICE_IN_WIRED_HEADSET",
+    "AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET"
+  ],
+  "stream_types": [
+    "AUDIO_STREAM_VOICE_CALL",
+    "AUDIO_STREAM_SYSTEM",
+    "AUDIO_STREAM_RING",
+    "AUDIO_STREAM_MUSIC",
+    "AUDIO_STREAM_ALARM",
+    "AUDIO_STREAM_NOTIFICATION"
+  ],
+  "common_issues": {
+    "underrun": {
+      "description": "Audio buffer underrun detected",
+      "severity": "warning",
+      "pattern": "underrun"
+    },
+    "device_busy": {
+      "description": "Audio device is busy",
+      "severity": "error",
+      "pattern": "device.*busy"
+    },
+    "open_failed": {
+      "description": "Failed to open audio stream",
+      "severity": "error",
+      "pattern": "open.*fail"
+    },
+    "routing_failed": {
+      "description": "Audio routing failed",
+      "severity": "error",
+      "pattern": "routing.*fail"
+    }
+  }
+}
